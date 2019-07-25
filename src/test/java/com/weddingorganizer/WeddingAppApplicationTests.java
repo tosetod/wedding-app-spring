@@ -11,6 +11,7 @@ public class WeddingAppApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		
 	}
 
 }

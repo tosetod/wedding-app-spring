@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -17,7 +19,6 @@ public class BudgetItem extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
 	private String type;
 	
 	private Integer amount;
@@ -26,13 +27,15 @@ public class BudgetItem extends BaseEntity {
 	
 	private boolean editMode;
 	
+	@JsonIgnore
 	@ManyToOne
-	private Wedding wedding;
+	private User user;
+//	@ManyToOne
+//	private Wedding wedding;
 	
 	public int getOverUnder() {
-		return this.amount - this.budget;
+		return this.budget - this.amount;
 	}
-	
 	
 	
 
