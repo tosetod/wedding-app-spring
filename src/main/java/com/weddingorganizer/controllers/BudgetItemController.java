@@ -3,8 +3,11 @@ package com.weddingorganizer.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +24,7 @@ import com.weddingorganizer.models.User;
 import com.weddingorganizer.repositories.BudgetRepository;
 import com.weddingorganizer.repositories.UserRepository;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/wedding/{id}")
 public class BudgetItemController {
@@ -35,7 +39,6 @@ public class BudgetItemController {
 	public List<BudgetItem> getAllBudgetItems(@PathVariable Integer id){
 		
 		Optional<User> user = userRepository.findById(id);
-				//userRepository.findAll().stream().filter(u -> u.getWedding().getId() == id).findAny();
 		
 		if (user.isPresent()) {
 			return user.get().getBudgetItems();
@@ -45,7 +48,7 @@ public class BudgetItemController {
 	}
 	
 	@PostMapping("/budget-planner")
-	public BudgetItem createBudgetItem(@PathVariable Integer id, @RequestBody BudgetItem item) {
+	public BudgetItem createBudgetItem(@PathVariable Integer id, @Valid @RequestBody BudgetItem item) {
 		User user = new User();
 		user.setId(id);
 		item.setUser(user);
@@ -53,13 +56,13 @@ public class BudgetItemController {
 	}
 	
 	@PutMapping("/budget-planner/{itemId}")
-	public BudgetItem updateBudgetItem(@PathVariable Integer itemId, @RequestBody BudgetItem editedItem) {
+	public BudgetItem updateBudgetItem(@PathVariable Integer itemId, @Valid @RequestBody BudgetItem editedItem) {
 		BudgetItem item = budgetRepository.findById(itemId)
 				.orElseThrow(() -> new ResourceNotFoundException("Budget Item", "id", itemId));
 		
 		item.setAmount(editedItem.getAmount());
 		item.setBudget(editedItem.getBudget());
-		item.setEditMode(editedItem.isEditMode());
+		//item.setEditMode(editedItem.isEditMode());
 		item.setType(editedItem.getType());
 		
 		BudgetItem updatedItem = budgetRepository.save(item);

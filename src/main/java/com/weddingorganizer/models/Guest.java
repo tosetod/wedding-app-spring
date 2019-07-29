@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,6 +20,8 @@ public class Guest extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@NotBlank(message = "Must enter guest's name")
 	private String name;
 	private boolean isInvited;
 	private boolean confirmed;
@@ -27,7 +30,5 @@ public class Guest extends BaseEntity {
 	@JsonIgnore
 	@ManyToOne
 	private User user;
-//	@ManyToOne
-//	private Wedding wedding;
 	
 }

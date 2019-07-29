@@ -3,8 +3,11 @@ package com.weddingorganizer.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -20,6 +23,7 @@ import com.weddingorganizer.models.User;
 import com.weddingorganizer.repositories.RestaurantRepository;
 import com.weddingorganizer.repositories.UserRepository;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class RestaurantController {
 
@@ -47,7 +51,7 @@ public class RestaurantController {
 	}
 	
 	@PostMapping("/restaurants/new")
-	public Restaurant createRestaurant(@RequestBody Restaurant restaurant) {
+	public Restaurant createRestaurant(@Valid @RequestBody Restaurant restaurant) {
 		
 		return restaurantRepository.save(restaurant);
 	}

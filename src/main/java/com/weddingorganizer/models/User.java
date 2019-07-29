@@ -11,6 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,17 +31,26 @@ public class User extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@NotBlank(message = "First name is mandatory")
 	private String firstName;
 	private String lastName;
+	
+	@Email(message = "Email should be valid")
+	@NotBlank(message = "Email is mandatory")
 	private String email;
+	
+	@Min(value = 16, message = "Age should not be less than 16")
+    @Max(value = 120, message = "Age out of bounds")
 	private byte age;
+	
+	@Future
 	private Date weddingDate;
 	private String partnerName;
-	private byte partnerAge;
 	
-//	@OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "wedding_id", referencedColumnName = "id")
-//	private Wedding wedding;
+	@Min(value = 16, message = "Age should not be less than 16")
+    @Max(value = 120, message = "Age out of bounds")
+	private byte partnerAge;
 	
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -45,10 +59,6 @@ public class User extends BaseEntity {
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Guest> guests;
-	
-//	@OneToOne(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "restaurant_id", referencedColumnName = "id")
-//	private Restaurant restaurant;
 	
 	@ManyToOne
 	private Restaurant restaurant;

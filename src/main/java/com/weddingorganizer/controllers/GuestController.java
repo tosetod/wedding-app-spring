@@ -3,8 +3,11 @@ package com.weddingorganizer.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +24,7 @@ import com.weddingorganizer.models.User;
 import com.weddingorganizer.repositories.GuestRepository;
 import com.weddingorganizer.repositories.UserRepository;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/wedding/{id}")
 public class GuestController {
@@ -44,7 +48,7 @@ public class GuestController {
 	}
 	
 	@PostMapping("/guests")
-	public Guest createGuest(@PathVariable Integer id, @RequestBody Guest guest) {
+	public Guest createGuest(@PathVariable Integer id, @Valid @RequestBody Guest guest) {
 		User user = new User();
 		user.setId(id);
 		guest.setUser(user);
@@ -52,7 +56,7 @@ public class GuestController {
 	}
 	
 	@PutMapping("/guests")
-	public Guest updateGuest(@RequestParam(required = true) Integer id, @RequestBody Guest editedGuest) {
+	public Guest updateGuest(@RequestParam(required = true) Integer id, @Valid @RequestBody Guest editedGuest) {
 		Guest guest = guestRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Guest", "id", id));
 		
