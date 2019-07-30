@@ -1,7 +1,6 @@
 package com.weddingorganizer.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -38,13 +37,10 @@ public class BudgetItemController {
 	@GetMapping("/budget-planner")
 	public List<BudgetItem> getAllBudgetItems(@PathVariable Integer id){
 		
-		Optional<User> user = userRepository.findById(id);
+		User user = userRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 		
-		if (user.isPresent()) {
-			return user.get().getBudgetItems();
-		}
-		
-		throw new ResourceNotFoundException("User", "id", id);
+			return user.getBudgetItems();
 	}
 	
 	@PostMapping("/budget-planner")
@@ -65,9 +61,7 @@ public class BudgetItemController {
 		//item.setEditMode(editedItem.isEditMode());
 		item.setType(editedItem.getType());
 		
-		BudgetItem updatedItem = budgetRepository.save(item);
-		
-		return updatedItem;
+		return budgetRepository.save(item);
 	}
 	
 	@DeleteMapping("/budget-planner")

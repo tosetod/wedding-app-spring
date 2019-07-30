@@ -10,8 +10,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-public class ValidationException {
+public class ValidationException extends RuntimeException {
 	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1587722791925117283L;
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> handleValidationExceptions(

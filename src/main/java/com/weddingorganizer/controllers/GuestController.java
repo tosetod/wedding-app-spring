@@ -1,7 +1,6 @@
 package com.weddingorganizer.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -38,13 +37,10 @@ public class GuestController {
 	@GetMapping("/guests")
 	public List<Guest> getAllGuests(@PathVariable Integer id){
 		
-		Optional<User> user = userRepository.findById(id);
+		User user = userRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 		
-		if (user.isPresent()) {
-			return user.get().getGuests();
-		}
-		
-		throw new ResourceNotFoundException("User", "id", id);
+		return user.getGuests();
 	}
 	
 	@PostMapping("/guests")
@@ -60,13 +56,12 @@ public class GuestController {
 		Guest guest = guestRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Guest", "id", id));
 		
+		guest.setName(editedGuest.getName());
 		guest.setInvited(editedGuest.isInvited());
 		guest.setConfirmed(editedGuest.isConfirmed());
 		guest.setPlusOne(editedGuest.getPlusOne());
 		
-		Guest updatedGuest = guestRepository.save(guest);
-		
-		return updatedGuest;
+		return guestRepository.save(guest);
 	}
 	
 	@DeleteMapping("/guests")
