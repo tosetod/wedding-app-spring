@@ -3,7 +3,7 @@ package com.weddingorganizer.validations;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import com.weddingorganizer.DTOs.UserDto;
+import com.weddingorganizer.dto.UserDto;
 
 public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, Object> {
 

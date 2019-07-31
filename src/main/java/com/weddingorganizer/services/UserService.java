@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
-import com.weddingorganizer.DTOs.UserDto;
+import com.weddingorganizer.dto.UserDto;
 import com.weddingorganizer.exceptions.EmailExistsException;
 import com.weddingorganizer.models.Role;
 import com.weddingorganizer.models.User;
+import com.weddingorganizer.models.VerificationToken;
 import com.weddingorganizer.repositories.UserRepository;
 
 @Service
@@ -56,6 +57,22 @@ public class UserService implements IUserService {
 			return null;
 		}
 		return registered;
+	}
+
+	public VerificationToken getVerificationToken(String token) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void createVerificationToken(User user, String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void saveRegisteredUser(User user) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

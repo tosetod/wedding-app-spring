@@ -1,11 +1,13 @@
 package com.weddingorganizer.services;
 
-import com.weddingorganizer.DTOs.UserDto;
+import com.weddingorganizer.dto.UserDto;
 import com.weddingorganizer.exceptions.EmailExistsException;
 import com.weddingorganizer.models.User;
 
 public interface IUserService {
 	
 	User registerNewUserAccount(UserDto accountDto) throws EmailExistsException;
+
+	void createVerificationToken(User user, String token);
 	
 }

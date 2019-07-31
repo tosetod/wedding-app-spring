@@ -1,4 +1,4 @@
-package com.weddingorganizer.DTOs;
+package com.weddingorganizer.dto;
 
 import java.util.Date;
 
@@ -8,11 +8,9 @@ import javax.validation.constraints.NotNull;
 import com.weddingorganizer.validations.PasswordMatches;
 import com.weddingorganizer.validations.ValidEmail;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 @PasswordMatches
 public class UserDto {
 	@NotNull

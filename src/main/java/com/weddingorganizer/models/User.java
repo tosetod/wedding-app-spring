@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -35,6 +36,14 @@ public class User extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Column(name = "enabled")
+	private boolean enabled;
+
+	public User() {
+		super();
+		this.enabled = false;
+	}
 	
 	@NotBlank(message = "First name is mandatory")
 	private String firstName;
@@ -78,7 +87,7 @@ public class User extends BaseEntity {
 	    inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
 
-
+	
   
 
 }
