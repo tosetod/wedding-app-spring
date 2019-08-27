@@ -24,8 +24,8 @@ public class Guest extends BaseEntity {
 	@NotBlank(message = "Must enter guest's name")
 	private String name;
 	private boolean isInvited;
+	private boolean plusOne;
 	private boolean confirmed;
-	private String plusOne;
 	
 	@JsonIgnore
 	@ManyToOne

@@ -26,11 +26,9 @@ public class BudgetItem extends BaseEntity {
 	private String type;
 	
 	@Positive(message = "Amount must be more than zero")
-	@NotBlank(message = "Must set amount")
 	private int amount;
 	
 	@Positive(message = "Budget must be more than zero")
-	@NotBlank(message = "Must set budget")
 	private int budget;
 	
 	//private boolean editMode;

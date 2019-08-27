@@ -6,13 +6,9 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -65,9 +61,9 @@ public class User extends BaseEntity {
     @Max(value = 120, message = "Age out of bounds")
 	private byte partnerAge;
 	
-	@JsonIgnore
-	@NotBlank(message = "Password is mandatory")
-	private String Password;
+//	@JsonIgnore
+//	@NotBlank(message = "Password is mandatory")
+//	private String Password;
 	
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -81,11 +77,11 @@ public class User extends BaseEntity {
 	private Restaurant restaurant;
 
 
-	@ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "users_roles", 
-	    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-	    inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private List<Role> roles;
+//	@ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name = "users_roles", 
+//	    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+//	    inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+//    private List<Role> roles;
 
 	
   

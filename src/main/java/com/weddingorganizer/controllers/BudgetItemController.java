@@ -1,5 +1,7 @@
 package com.weddingorganizer.controllers;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -44,11 +46,12 @@ public class BudgetItemController {
 	}
 	
 	@PostMapping("/budget-planner")
-	public BudgetItem createBudgetItem(@PathVariable Integer id, @Valid @RequestBody BudgetItem item) {
+	public ResponseEntity<?> createBudgetItem(@PathVariable Integer id, @Valid @RequestBody BudgetItem item) throws URISyntaxException {
 		User user = new User();
 		user.setId(id);
 		item.setUser(user);
-		return budgetRepository.save(item);
+		budgetRepository.save(item);
+		return ResponseEntity.created(this.budgetItemsUri(id)).body(item);
 	}
 	
 	@PutMapping("/budget-planner/{itemId}")
@@ -66,9 +69,16 @@ public class BudgetItemController {
 	
 	@DeleteMapping("/budget-planner")
 	public ResponseEntity<?> deleteBudgetItem(@RequestParam(required = true) Integer id){
-		
-		budgetRepository.deleteById(id);
+		try {
+			budgetRepository.deleteById(id);
+		} catch (Exception e) {
+			throw new ResourceNotFoundException("Budget item", "ID", id);
+		}
 		
 		return ResponseEntity.ok().build();
+	}
+	
+	private URI budgetItemsUri(Integer userId) throws URISyntaxException {
+		return new URI("http://localhost:8080/wedding/" + userId + "/budget-planner");
 	}
 }

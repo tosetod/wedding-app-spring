@@ -59,7 +59,7 @@ public class GuestController {
 		guest.setName(editedGuest.getName());
 		guest.setInvited(editedGuest.isInvited());
 		guest.setConfirmed(editedGuest.isConfirmed());
-		guest.setPlusOne(editedGuest.getPlusOne());
+		guest.setPlusOne(editedGuest.isPlusOne());
 		
 		return guestRepository.save(guest);
 	}

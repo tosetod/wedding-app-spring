@@ -66,7 +66,7 @@ public class RestaurantController {
 	}
 	
 	@PatchMapping("/restaurants")
-	public ResponseEntity<?> addRestaurantToUser(@RequestParam(required = true) Integer userId, @RequestParam(required = true) Integer restaurantId) {
+	public ResponseEntity<?> addRestaurantToUser(@RequestParam Integer userId, @RequestParam Integer restaurantId) {
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 		Restaurant restaurant = new Restaurant();
